@@ -1,4 +1,5 @@
 import { Search, Bell, Sparkles, Headset, Flame, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useAppState } from "../../state/AppState";
 import { Avatar } from "../ui/Avatar";
 import type { Role } from "../../data/types";
@@ -15,9 +16,13 @@ export function TopBar() {
   return (
     <header className="h-11 bg-white border-b border-ink-200 sticky top-0 z-30 flex items-center px-3 gap-2">
       <div className="flex items-center gap-2 mr-1">
-        <span className="text-[12px] font-semibold text-ink-900 tracking-tight">
+        <Link
+          to="/"
+          className="text-[12px] font-semibold text-ink-900 tracking-tight hover:text-brand-700 transition-colors"
+          title="Back to landing"
+        >
           Support Triage Desk
-        </span>
+        </Link>
         <span className="text-[10px] text-ink-400 uppercase tracking-wider hidden sm:inline">
           · Northwind
         </span>
