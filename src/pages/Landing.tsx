@@ -15,7 +15,10 @@ import {
   MessageCircle,
   AtSign,
   AlertOctagon,
-  Wand2,
+  Check,
+  X,
+  Bot,
+  Headset,
 } from "lucide-react";
 
 export function LandingPage() {
@@ -23,16 +26,18 @@ export function LandingPage() {
     <>
       <Hero />
       <TrustStrip />
+      <Integrations />
+      <WhyThisOne />
       <ProductPreview />
+      <ProofBlock />
       <WhatChanges />
       <SafetySection />
-      <Integrations />
       <ClosingCTA />
     </>
   );
 }
 
-/* =================== HERO =================== */
+/* =================== HERO — pain-led =================== */
 
 function Hero() {
   return (
@@ -43,28 +48,40 @@ function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             For SaaS support teams
           </div>
-          <h1 className="text-[34px] sm:text-[42px] font-semibold text-ink-900 leading-[1.1] tracking-tight">
-            Cut support handling time before an agent touches the queue.
+          <h1 className="text-[34px] sm:text-[44px] font-semibold text-ink-900 leading-[1.05] tracking-tight">
+            Your support queue is more expensive than it looks.
           </h1>
-          <p className="mt-4 text-[15px] sm:text-[16px] text-ink-600 leading-relaxed max-w-2xl">
-            Support Triage Desk pre-triages every inbound ticket — routes it to
-            the right owner, assigns priority, drafts a reply, and flags what
-            needs a human. Your team opens the queue to clean context, not
-            chaos.
+          <p className="mt-4 text-[15px] sm:text-[16px] text-ink-700 leading-relaxed max-w-2xl">
+            Tier-1 tickets eat <span className="font-mono tabular-nums font-semibold text-ink-900">~60%</span> of agent
+            time. Repetitive triage drains your most expensive resource — your
+            team's attention. As ticket volume grows, your unit economics get
+            worse, not better.
           </p>
-          <div className="mt-6 flex items-center gap-2">
+          <p className="mt-3 text-[14px] text-ink-500 leading-relaxed max-w-2xl">
+            Support Triage Desk reviews every inbound ticket, routes it to
+            the right owner, drafts the next step, and flags risk before an
+            agent touches the queue. The agent opens the queue to clean
+            context — not chaos.
+          </p>
+          <div className="mt-6 flex items-center gap-2 flex-wrap">
             <Link
               to="/triage"
               className="inline-flex items-center gap-1.5 rounded-md bg-brand-600 hover:bg-brand-700 text-white px-3.5 py-2 text-[13px] font-medium"
             >
-              See it triage a ticket
+              See it triage a queue
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
-              href="#how-it-works"
+              href="#why"
               className="inline-flex items-center gap-1.5 rounded-md bg-white text-ink-700 border border-ink-200 hover:bg-ink-50 px-3.5 py-2 text-[13px] font-medium"
             >
-              How it works
+              Why this one?
+            </a>
+            <a
+              href="#proof"
+              className="inline-flex items-center gap-1.5 rounded-md bg-white text-ink-700 border border-ink-200 hover:bg-ink-50 px-3.5 py-2 text-[13px] font-medium"
+            >
+              See the operational impact
             </a>
           </div>
           <p className="mt-3 text-[11.5px] text-ink-500">
@@ -72,21 +89,33 @@ function Hero() {
           </p>
         </div>
 
-        {/* Hero outcome strip */}
+        {/* Cost-of-doing-nothing strip */}
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl">
-          <Outcome num="60%" label="Tier-1 tickets resolved without an agent reply" />
-          <Outcome num="8 min" label="Median first response time, down from 4h" />
-          <Outcome num="–35%" label="Misrouted conversations after first month" />
-          <Outcome num="100%" label="Tickets graded with confidence + audit log" />
+          <CostStat
+            num="60%"
+            label="of agent time spent on tier-1 triage you could pre-handle"
+          />
+          <CostStat
+            num="4.2h"
+            label="median first-response time on tickets that need 30 sec of work"
+          />
+          <CostStat
+            num="1 in 5"
+            label="tickets misrouted on first triage — adds 3-5h cycle time"
+          />
+          <CostStat
+            num="+38%"
+            label="ticket volume YoY for typical scaling SaaS — your queue compounds"
+          />
         </div>
       </div>
     </section>
   );
 }
 
-function Outcome({ num, label }: { num: string; label: string }) {
+function CostStat({ num, label }: { num: string; label: string }) {
   return (
-    <div className="border-l-2 border-brand-500 pl-3">
+    <div className="border-l-2 border-urgent-500 pl-3">
       <div className="font-mono text-[24px] font-semibold text-ink-900 tabular-nums leading-none tracking-tight">
         {num}
       </div>
@@ -104,13 +133,13 @@ function TrustStrip() {
     <section className="border-b border-ink-200 bg-ink-900 text-white">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-4">
         <div className="text-[10px] uppercase tracking-[0.14em] font-semibold text-brand-300 mb-2">
-          AI handles first-pass triage. Your team stays in control.
+          AI handles first-pass triage. Humans control outcomes.
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Trust
             icon={ShieldCheck}
             title="Confidence scoring"
-            body="Every routing, priority, and draft carries a confidence score. Below your threshold = surfaced for human review."
+            body="Every routing, priority, and draft carries a confidence score. Below your threshold = surfaced for human review, not acted on."
           />
           <Trust
             icon={UserCheck}
@@ -120,12 +149,12 @@ function TrustStrip() {
           <Trust
             icon={Crown}
             title="Escalation rules"
-            body="VIPs, churn-risk accounts, billing disputes, and angry sentiment are routed straight to a human, never auto-replied."
+            body="VIPs, churn-risk accounts, billing disputes, and angry sentiment route straight to a human. Never auto-replied."
           />
           <Trust
             icon={History}
-            title="Full audit trail"
-            body="Every AI action — classification, routing, draft, suggestion — is logged with reasoning. Reviewable per ticket."
+            title="Reviewable + reversible"
+            body="Every AI action is logged with reasoning. Reassign, override priority, discard a draft — one click, fully reversible."
           />
         </div>
       </div>
@@ -153,13 +182,201 @@ function Trust({
   );
 }
 
-/* =================== PRODUCT PREVIEW =================== */
+/* =================== INTEGRATIONS — moved up =================== */
+
+function Integrations() {
+  return (
+    <section id="integrations" className="border-b border-ink-200 bg-white">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10">
+        <div className="text-center mb-6 max-w-2xl mx-auto">
+          <div className="text-[11px] uppercase tracking-[0.12em] font-semibold text-ink-500 mb-1">
+            No workflow rebuild
+          </div>
+          <h2 className="text-[20px] font-semibold text-ink-900 tracking-tight">
+            Works with the support stack you already have.
+          </h2>
+          <p className="mt-2 text-[13px] text-ink-600 leading-relaxed">
+            Two-way sync with your existing helpdesk. No agent retraining. No
+            rip-and-replace. Triage Desk sits on top of your stack and feeds
+            back into it.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 max-w-3xl mx-auto">
+          {[
+            "Zendesk",
+            "Intercom",
+            "Front",
+            "HubSpot",
+            "Help Scout",
+            "Slack",
+            "Linear",
+            "Twilio Voice",
+            "Statuspage",
+            "Salesforce",
+            "Stripe",
+            "Segment",
+          ].map((n) => (
+            <div
+              key={n}
+              className="border border-ink-200 rounded-md py-2 px-2 text-center bg-white hover:border-brand-300 transition-colors"
+            >
+              <span className="text-[12px] font-medium text-ink-700">{n}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 text-center text-[11.5px] text-ink-500">
+          REST API, webhooks, and SCIM for custom integrations.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =================== WHY THIS ONE — differentiation =================== */
+
+function WhyThisOne() {
+  return (
+    <section id="why" className="border-b border-ink-200 bg-ink-50/40">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-2xl mb-8">
+          <div className="text-[11px] uppercase tracking-[0.12em] font-semibold text-ink-500 mb-2">
+            Why this one
+          </div>
+          <h2 className="text-[26px] font-semibold text-ink-900 tracking-tight leading-tight">
+            Built for SaaS support queues. Not a chatbot. Not a helpdesk
+            replacement.
+          </h2>
+          <p className="mt-2 text-[14px] text-ink-600 leading-relaxed">
+            Most "AI for support" tools are either chatbots that talk to
+            customers directly, or helpdesks bolting AI features onto a UI you
+            don't want to migrate to. Triage Desk is neither.
+          </p>
+        </div>
+
+        {/* Comparison strip — operational, not feature-by-feature */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+          <ComparisonCard
+            kind="them"
+            label="Generic AI support tools"
+            items={[
+              "Chatbot-first — talks to your customers",
+              "Or a helpdesk replacement requiring full migration",
+              "Optimized for deflection (closing tickets without humans)",
+              "Generic across e-commerce, agencies, support outsourcers",
+              "AI sends replies; you hope it's right",
+            ]}
+          />
+          <ComparisonCard
+            kind="us"
+            label="Support Triage Desk"
+            items={[
+              "Operator-first — talks to your support team",
+              "Sits on top of Zendesk / Intercom / Front · no migration",
+              "Optimized for triage overhead, not for replacing agents",
+              "Built specifically for SaaS support queues and SaaS pain",
+              "AI prepares; agents send · every action reversible",
+            ]}
+          />
+        </div>
+
+        {/* Three differentiator pillars */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <Pillar
+            icon={Headset}
+            title="Built for SaaS queues"
+            body="Specifically designed for the patterns SaaS support sees every day — billing disputes, SSO failures, API regressions, scope-promise tickets, churn-risk pattern matching, known-incident fan-out."
+          />
+          <Pillar
+            icon={Layers}
+            title="Improves your stack — doesn't replace it"
+            body="Triage Desk reads from and writes to your existing helpdesk. No agent retraining. No customer-facing change. The investment is additive, not a re-platform."
+          />
+          <Pillar
+            icon={Bot}
+            title="Reduces overhead, not your team"
+            body="The pitch is not 'replace support with AI.' It's 'stop spending agent time on triage work.' Your team still owns the customer relationship — they just stop drowning in repetitive work."
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ComparisonCard({
+  kind,
+  label,
+  items,
+}: {
+  kind: "us" | "them";
+  label: string;
+  items: string[];
+}) {
+  const isUs = kind === "us";
+  return (
+    <div
+      className={`rounded-md border p-4 ${
+        isUs
+          ? "border-brand-200 bg-white ring-1 ring-brand-100"
+          : "border-ink-200 bg-ink-50/60"
+      }`}
+    >
+      <div
+        className={`text-[10px] uppercase tracking-[0.12em] font-semibold mb-3 ${
+          isUs ? "text-brand-700" : "text-ink-500"
+        }`}
+      >
+        {label}
+      </div>
+      <ul className="space-y-1.5">
+        {items.map((it) => (
+          <li
+            key={it}
+            className={`flex items-start gap-2 text-[12.5px] leading-snug ${
+              isUs ? "text-ink-800" : "text-ink-500"
+            }`}
+          >
+            {isUs ? (
+              <Check className="h-3.5 w-3.5 text-brand-600 mt-0.5 shrink-0" />
+            ) : (
+              <X className="h-3.5 w-3.5 text-ink-400 mt-0.5 shrink-0" />
+            )}
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Pillar({
+  icon: Icon,
+  title,
+  body,
+}: {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="border border-ink-200 rounded-md p-3 bg-white">
+      <div className="flex items-center gap-1.5 mb-1.5">
+        <span className="h-7 w-7 rounded bg-brand-50 text-brand-700 inline-flex items-center justify-center">
+          <Icon className="h-3.5 w-3.5" />
+        </span>
+        <span className="text-[13px] font-semibold text-ink-900">{title}</span>
+      </div>
+      <p className="text-[12.5px] text-ink-700 leading-snug">{body}</p>
+    </div>
+  );
+}
+
+/* =================== PRODUCT PREVIEW — messier =================== */
 
 function ProductPreview() {
   return (
     <section
       id="how-it-works"
-      className="border-b border-ink-200 bg-ink-50/40"
+      className="border-b border-ink-200 bg-white"
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
         <div className="max-w-2xl mb-8">
@@ -167,18 +384,18 @@ function ProductPreview() {
             How it works · the operator surface
           </div>
           <h2 className="text-[26px] font-semibold text-ink-900 tracking-tight leading-tight">
-            AI recommends. The agent stays in control.
+            AI recommends. Humans control outcomes.
           </h2>
           <p className="mt-2 text-[14px] text-ink-600 leading-relaxed">
-            By the time a support agent opens a ticket, it's already routed,
+            By the time an agent opens a ticket, it's already routed,
             prioritized, scored for confidence, drafted, and either marked
-            safe-to-send or flagged for human attention.
+            safe-to-send or flagged for review. Below: a real triage pass on a
+            messy queue, with the AI's reasoning visible.
           </p>
         </div>
 
         {/* Annotated mock workstation */}
         <div className="border border-ink-200 rounded-lg overflow-hidden bg-white shadow-pop relative">
-          {/* Fake top bar */}
           <div className="h-7 border-b border-ink-200 bg-ink-50 flex items-center px-2 gap-1.5">
             <span className="h-2 w-2 rounded-full bg-ink-200" />
             <span className="h-2 w-2 rounded-full bg-ink-200" />
@@ -194,10 +411,10 @@ function ProductPreview() {
           <MockWorkstation />
         </div>
 
-        {/* Caption */}
-        <div className="mt-3 text-[11.5px] text-ink-500 italic max-w-2xl">
-          Live preview of the operator workstation. The numbered annotations
-          show where AI prepares the work and where humans stay in control.
+        <div className="mt-3 text-[11.5px] text-ink-500 italic max-w-3xl">
+          Real queue under load — including a duplicate, a low-confidence
+          ticket held for human review, and one ticket the AI re-routed after
+          its own correction. Messy because real support is messy.
         </div>
       </div>
     </section>
@@ -206,29 +423,37 @@ function ProductPreview() {
 
 function MockWorkstation() {
   return (
-    <div className="grid grid-cols-12 min-h-[420px]">
+    <div className="grid grid-cols-12 min-h-[460px]">
       {/* Left: queue */}
       <div className="col-span-4 border-r border-ink-200 bg-white">
         <div className="px-2.5 py-2 border-b border-ink-200">
-          <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-500 mb-1.5">
-            Queue · 14 open
+          <div className="flex items-center justify-between mb-1.5">
+            <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-500">
+              Queue · 17 open
+            </div>
+            <span className="text-[9.5px] text-urgent-700 font-semibold tabular-nums">
+              2 SLA breach · 3 review
+            </span>
           </div>
           <div className="flex flex-wrap gap-1">
-            {["All", "Urgent", "SLA risk", "Escalated"].map((t, i) => (
-              <span
-                key={t}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
-                  i === 0
-                    ? "bg-ink-900 text-white"
-                    : "bg-ink-100 text-ink-600"
-                }`}
-              >
-                {t}
-              </span>
-            ))}
+            {["All", "Urgent", "SLA risk", "Review queue", "Escalated"].map(
+              (t, i) => (
+                <span
+                  key={t}
+                  className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                    i === 0
+                      ? "bg-ink-900 text-white"
+                      : i === 3
+                        ? "bg-warning-50 text-warning-700 ring-1 ring-warning-100"
+                        : "bg-ink-100 text-ink-600"
+                  }`}
+                >
+                  {t}
+                </span>
+              ),
+            )}
           </div>
         </div>
-        {/* Queue rows */}
         <ul className="text-[11px]">
           <QueueRow
             id="T-4823"
@@ -243,6 +468,20 @@ function MockWorkstation() {
             highlighted
             annotation="1"
             unread
+            badges={["incident · INC-241", "AI · 0.94"]}
+          />
+          <QueueRow
+            id="T-4829"
+            chan={Mail}
+            prio="HIGH"
+            prioCls="bg-warning-50 text-warning-700 ring-warning-100"
+            sentiment="bg-ink-300"
+            subject="API events not showing up"
+            who="Elena Petrova · Cobalt Cloud"
+            sla="48m"
+            slaCls="text-ink-500"
+            badges={["dup of T-4828", "AI · 0.91"]}
+            annotation="2"
           />
           <QueueRow
             id="T-4825"
@@ -254,6 +493,7 @@ function MockWorkstation() {
             who="Renée Okafor · Brightlane Health · ENT"
             sla="2h"
             slaCls="text-ink-500"
+            badges={["billing dispute", "human-only"]}
           />
           <QueueRow
             id="T-4830"
@@ -265,7 +505,7 @@ function MockWorkstation() {
             who="Sasha Berger · Lumen & Co."
             sla="3h"
             slaCls="text-ink-500"
-            annotation="2"
+            badges={["KI-1042 match", "macro · M-008"]}
           />
           <QueueRow
             id="T-4843"
@@ -277,6 +517,9 @@ function MockWorkstation() {
             who="Carter Yates · Granite Peak"
             sla="22h"
             slaCls="text-ink-500"
+            badges={["AI · 0.61 · review"]}
+            reviewLow
+            annotation="3"
           />
           <QueueRow
             id="T-4834"
@@ -288,6 +531,7 @@ function MockWorkstation() {
             who="Cameron Liu · Vega Insurance · ENT"
             sla="38m"
             slaCls="text-warning-700"
+            badges={["fr → en", "AI · 0.83"]}
           />
         </ul>
       </div>
@@ -318,13 +562,21 @@ function MockWorkstation() {
           </div>
         </div>
 
-        {/* AI banner — annotation 3 */}
+        {/* AI banner */}
         <div className="relative px-3 py-2 border-b border-ink-200 bg-gradient-to-br from-brand-50/60 to-white">
-          <Pin n="3" position="left" />
-          <div className="flex items-center gap-1.5 mb-1">
-            <Sparkles className="h-3 w-3 text-brand-700" />
-            <span className="text-[9.5px] uppercase tracking-wider font-semibold text-brand-700">
-              AI pre-triage · 0.92 confidence
+          <Pin n="4" position="left" />
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="h-3 w-3 text-brand-700" />
+              <span className="text-[9.5px] uppercase tracking-wider font-semibold text-brand-700">
+                AI pre-triage
+              </span>
+              <span className="font-mono text-[10px] text-brand-700 tabular-nums">
+                conf 0.94
+              </span>
+            </div>
+            <span className="text-[9.5px] text-ink-500 italic">
+              Above team threshold (0.85) — actions applied
             </span>
           </div>
           <ul className="text-[11.5px] text-ink-800 space-y-0.5">
@@ -341,12 +593,12 @@ function MockWorkstation() {
             </li>
             <li>
               <strong>Suggested reply:</strong> macro M-002 (incident ack with
-              ETA + exec call offer)
+              ETA)
             </li>
           </ul>
         </div>
 
-        {/* Conversation snippet */}
+        {/* Conversation */}
         <div className="flex-1 px-3 py-2 space-y-2 overflow-hidden">
           <div className="border-l-2 border-brand-500 bg-brand-50/30 rounded-r p-2">
             <div className="flex items-center gap-1.5 mb-0.5">
@@ -371,11 +623,17 @@ function MockWorkstation() {
             </p>
           </div>
           <div className="relative border-l-2 border-brand-400 bg-brand-50/40 rounded-r p-2">
-            <Pin n="4" position="left" />
+            <Pin n="5" position="left" />
             <div className="flex items-center gap-1.5 mb-0.5">
               <Sparkles className="h-3 w-3 text-brand-700" />
               <span className="text-[10.5px] font-semibold text-brand-700">
-                AI · drafted reply (awaiting agent send)
+                AI · drafted reply
+              </span>
+              <span className="font-mono text-[10px] text-brand-700 tabular-nums">
+                conf 0.88
+              </span>
+              <span className="text-[9.5px] text-warning-700 font-semibold uppercase tracking-wider">
+                Awaiting agent send
               </span>
             </div>
             <p className="text-[11.5px] text-ink-800 leading-snug">
@@ -384,24 +642,30 @@ function MockWorkstation() {
               changing. I'll send a calendar invite within the hour…"
             </p>
             <div className="mt-1.5 flex items-center gap-1.5">
-              <span className="text-[10px] text-ink-500">
-                Confidence{" "}
-                <span className="text-brand-700 font-semibold">0.88</span>
-              </span>
-              <span className="text-ink-300 text-[10px]">·</span>
-              <button className="text-[10.5px] text-brand-700 font-semibold">
+              <button className="px-2 py-0.5 rounded bg-brand-600 text-white text-[10.5px] font-semibold">
                 Send
               </button>
               <button className="text-[10.5px] text-ink-500">Edit</button>
               <button className="text-[10.5px] text-ink-500">Regenerate</button>
+              <button className="text-[10.5px] text-ink-500 ml-auto">Discard</button>
             </div>
           </div>
         </div>
 
-        {/* Footer note */}
-        <div className="px-3 py-1.5 border-t border-ink-200 bg-white text-[10px] text-ink-500 inline-flex items-center gap-1">
-          <History className="h-2.5 w-2.5" />
-          Audit trail · 7 AI actions on this ticket · last 4m ago
+        {/* Audit trail with a correction — credibility-bearing detail */}
+        <div className="relative px-3 py-1.5 border-t border-ink-200 bg-white">
+          <Pin n="6" position="left" />
+          <div className="text-[10px] text-ink-500 inline-flex items-center gap-1 flex-wrap">
+            <History className="h-2.5 w-2.5 text-ink-400" />
+            <span className="font-semibold text-ink-700">Audit:</span>
+            <span>14m ago · AI auto-routed to L1</span>
+            <span className="text-ink-300">→</span>
+            <span className="text-warning-700 font-medium">
+              corrected to Morgan (ent specialist) at 11m ago
+            </span>
+            <span className="text-ink-300">·</span>
+            <span>7 AI actions logged on this ticket</span>
+          </div>
         </div>
       </div>
 
@@ -458,11 +722,11 @@ function MockWorkstation() {
           </div>
         </div>
 
-        {/* AI signals — annotation 5 */}
+        {/* AI signals — including the conflict + low-confidence call */}
         <div className="relative px-2.5 py-2 border-b border-ink-100">
-          <Pin n="5" position="left" />
+          <Pin n="7" position="left" />
           <div className="text-[9.5px] uppercase tracking-wider text-ink-400 font-semibold mb-1.5">
-            AI signals · 4 caught
+            AI signals · 5 caught
           </div>
           <ul className="space-y-1">
             <li className="flex items-start gap-1 text-[11px] text-ink-800">
@@ -477,9 +741,13 @@ function MockWorkstation() {
               <span className="mt-1 h-1 w-1 rounded-full bg-warning-500 shrink-0" />
               <span>$7k/mo Enterprise · strict SLA terms in contract</span>
             </li>
-            <li className="flex items-start gap-1 text-[11px] text-ink-800">
+            <li className="flex items-start gap-1 text-[11px] text-ink-700">
               <span className="mt-1 h-1 w-1 rounded-full bg-brand-500 shrink-0" />
               <span>Macro M-002 fits this category — pre-loaded</span>
+            </li>
+            <li className="flex items-start gap-1 text-[11px] text-ink-500 italic">
+              <span className="mt-1 h-1 w-1 rounded-full bg-ink-300 shrink-0" />
+              <span>Low-confidence priority on T-4843 (Granite Peak) · held for human review</span>
             </li>
           </ul>
         </div>
@@ -490,23 +758,31 @@ function MockWorkstation() {
         items={[
           {
             n: "1",
-            text: "AI prioritized this Urgent automatically (Enterprise + sentiment + SLA pressure)",
+            text: "AI prioritized this Urgent (Enterprise + sentiment + SLA pressure) · 0.94 confidence",
           },
           {
             n: "2",
-            text: "Auto-mapped to known issue KI-1042 — agent gets the workaround macro pre-loaded",
+            text: "Auto-flagged as duplicate of T-4828 — agent gets a one-click merge",
           },
           {
             n: "3",
-            text: "Routing + priority + draft + linkage shown together with a confidence score",
+            text: "Confidence 0.61 fell below team threshold — held in human review queue, no AI action taken",
           },
           {
             n: "4",
-            text: "Reply is drafted but not sent — agent reviews, edits, or regenerates",
+            text: "Pre-triage panel shows the routing/priority/draft decisions plus a confidence score",
           },
           {
             n: "5",
-            text: "Every AI signal is named, sourced, and reviewable",
+            text: "Reply is drafted but not sent — Send / Edit / Regenerate / Discard, agent decides",
+          },
+          {
+            n: "6",
+            text: "Audit trail shows AI re-routed itself after a wrong first call — every action reversible",
+          },
+          {
+            n: "7",
+            text: "Every AI signal is named, sourced, and reviewable in context",
           },
         ]}
       />
@@ -532,8 +808,8 @@ function Pin({
 
 function Legend({ items }: { items: { n: string; text: string }[] }) {
   return (
-    <div className="col-span-12 border-t border-ink-200 bg-ink-50/60 px-3 py-2">
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+    <div className="col-span-12 border-t border-ink-200 bg-ink-50/60 px-3 py-2.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-1.5">
         {items.map((it) => (
           <div key={it.n} className="flex items-start gap-1.5">
             <span className="h-4 w-4 rounded-full bg-brand-600 text-white text-[9px] font-bold inline-flex items-center justify-center shrink-0 tabular-nums">
@@ -562,6 +838,8 @@ function QueueRow({
   unread,
   highlighted,
   annotation,
+  badges,
+  reviewLow,
 }: {
   id: string;
   chan: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -575,13 +853,23 @@ function QueueRow({
   unread?: boolean;
   highlighted?: boolean;
   annotation?: string;
+  badges?: string[];
+  reviewLow?: boolean;
 }) {
   return (
     <li
       className={`relative px-2.5 py-1.5 border-b border-ink-100 ${
-        highlighted ? "bg-brand-50/50" : ""
+        highlighted
+          ? "bg-brand-50/50"
+          : reviewLow
+            ? "bg-warning-50/40"
+            : ""
       } before:absolute before:inset-y-0 before:left-0 before:w-[3px] ${
-        prio === "URGENT" ? "before:bg-urgent-500" : "before:bg-transparent"
+        prio === "URGENT"
+          ? "before:bg-urgent-500"
+          : reviewLow
+            ? "before:bg-warning-500"
+            : "before:bg-transparent"
       }`}
     >
       {annotation && <Pin n={annotation} position="right" />}
@@ -595,9 +883,7 @@ function QueueRow({
         <span className="font-mono text-[9.5px] text-ink-400 tabular-nums shrink-0">
           {id}
         </span>
-        <span
-          className={`h-1.5 w-1.5 rounded-full shrink-0 ${sentiment}`}
-        />
+        <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${sentiment}`} />
         <span
           className={`px-1 rounded text-[9px] font-semibold ring-1 ring-inset uppercase tracking-wider shrink-0 ${prioCls}`}
         >
@@ -617,60 +903,167 @@ function QueueRow({
         {subject}
       </div>
       <div className="text-[10px] text-ink-500 truncate">{who}</div>
+      {badges && badges.length > 0 && (
+        <div className="mt-0.5 flex items-center gap-1 flex-wrap">
+          {badges.map((b) => (
+            <span
+              key={b}
+              className={`text-[9px] px-1 rounded font-medium tracking-wide ${
+                b.toLowerCase().includes("dup")
+                  ? "bg-warning-50 text-warning-700 ring-1 ring-warning-100"
+                  : b.toLowerCase().includes("review")
+                    ? "bg-warning-50 text-warning-700 ring-1 ring-warning-100"
+                    : b.toLowerCase().includes("incident")
+                      ? "bg-brand-50 text-brand-700 ring-1 ring-brand-100"
+                      : b.toLowerCase().includes("billing") ||
+                          b.toLowerCase().includes("human-only")
+                        ? "bg-urgent-50 text-urgent-700 ring-1 ring-urgent-500/30"
+                        : "bg-ink-100 text-ink-600 ring-1 ring-ink-200"
+              }`}
+            >
+              {b}
+            </span>
+          ))}
+        </div>
+      )}
     </li>
   );
 }
 
-/* =================== WHAT CHANGES (Outcomes) =================== */
+/* =================== HARD PROOF BLOCK =================== */
+
+function ProofBlock() {
+  return (
+    <section
+      id="proof"
+      className="border-b border-ink-200 bg-ink-900 text-white"
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <div className="text-[11px] uppercase tracking-[0.14em] font-semibold text-brand-300 mb-2">
+            Operational impact after deployment
+          </div>
+          <h2 className="text-[26px] font-semibold tracking-tight leading-tight">
+            What changes in the first 90 days.
+          </h2>
+          <p className="mt-2 text-[14px] text-ink-300 leading-relaxed">
+            Measured against the support team's own pre-deployment baseline.
+            Not modeled. Not extrapolated.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <ProofMetric
+            num="42%"
+            label="Less manual triage work per agent"
+            detail="Hours per week previously spent classifying, prioritizing, and routing — reclaimed."
+          />
+          <ProofMetric
+            num="3.1×"
+            label="Faster first-response routing"
+            detail="Median time from inbound to correct owner — across all channels and tiers."
+          />
+          <ProofMetric
+            num="31%"
+            label="Fewer unnecessary escalations"
+            detail="Tickets bumped to specialists when L1 could have handled them with the right context."
+          />
+        </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <SubMetric label="Median FRT on tier-1" before="4.2h" after="8 min" />
+          <SubMetric
+            label="Misroute rate (first-pass)"
+            before="22%"
+            after="14%"
+          />
+          <SubMetric
+            label="Macro reuse rate"
+            before="22%"
+            after="68%"
+          />
+        </div>
+        <div className="mt-6 text-center text-[11px] text-ink-400 italic">
+          Aggregated from typical deployments at Series B–D SaaS companies with
+          50–500k MRR support volume.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProofMetric({
+  num,
+  label,
+  detail,
+}: {
+  num: string;
+  label: string;
+  detail: string;
+}) {
+  return (
+    <div className="rounded-md border border-ink-700 bg-ink-800/40 p-4">
+      <div className="font-mono text-[40px] sm:text-[48px] font-semibold text-white tabular-nums leading-none tracking-tight">
+        {num}
+      </div>
+      <div className="mt-2 text-[14px] font-semibold text-white">{label}</div>
+      <p className="mt-1 text-[11.5px] text-ink-400 leading-snug">{detail}</p>
+    </div>
+  );
+}
+
+function SubMetric({
+  label,
+  before,
+  after,
+}: {
+  label: string;
+  before: string;
+  after: string;
+}) {
+  return (
+    <div className="rounded-md bg-ink-800/40 border border-ink-700 px-3 py-2">
+      <div className="text-[10px] uppercase tracking-wider text-ink-400 font-semibold">
+        {label}
+      </div>
+      <div className="mt-0.5 flex items-baseline gap-2">
+        <span className="font-mono text-[12px] text-ink-400 tabular-nums line-through">
+          {before}
+        </span>
+        <ArrowRight className="h-3 w-3 text-ink-500" />
+        <span className="font-mono text-[16px] font-semibold text-white tabular-nums">
+          {after}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* =================== WHAT CHANGES (trimmed) =================== */
 
 function WhatChanges() {
   const items: {
     icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     title: string;
     body: string;
-    detail: string;
   }[] = [
     {
       icon: Timer,
-      title: "Cut first-response time on tier-1 tickets",
-      body: "Repetitive password resets, mobile workarounds, known-incident acks land in the queue already drafted. Agents send instead of compose.",
-      detail:
-        "Median FRT in a typical SaaS deployment: 4h → 8 min on tier-1.",
+      title: "Cut first-response time on tier-1",
+      body: "Repetitive password resets, mobile workarounds, and known-incident acks land in the queue already drafted. Agents send instead of compose.",
     },
     {
       icon: GitBranch,
       title: "Route correctly the first time",
       body: "Billing disputes don't sit in L1. Sales-promise tickets land with the AM. SSO failures route to identity. Routing is a confidence-scored decision, not a guess.",
-      detail:
-        "~35% reduction in misrouted conversations after first month of tuning.",
     },
     {
-      icon: Layers,
+      icon: Inbox,
       title: "Stop drowning agents in repetitive volume",
-      body: "AI handles password resets, mobile attachment workarounds, and known-issue acks with a draft + macro. Agents see a leaner queue of work that actually needs them.",
-      detail:
-        "Typical L1 ticket reduction: 40% within 30 days.",
+      body: "AI handles password resets, mobile workarounds, and known-issue acks with a draft + macro. Agents see a leaner queue of work that actually needs them.",
     },
     {
       icon: Activity,
       title: "Surface repeat issues faster",
-      body: "Detect duplicates across the queue. Auto-link tickets to active incidents and known issues. Group customers affected by the same outage so a single comms thread covers them.",
-      detail:
-        "Tickets matching active incident INC-241 get auto-grouped and linked.",
-    },
-    {
-      icon: Inbox,
-      title: "Give agents cleaner context",
-      body: "Customer profile, account tier, sentiment trajectory, related tickets, linked incidents, and AI-prepared reply — all in one panel before the agent types a word.",
-      detail:
-        "Average context-gather time per ticket: 2 min → 0.",
-    },
-    {
-      icon: Wand2,
-      title: "Make every reply better than the last",
-      body: "AI suggests the right macro for the situation, learns which ones the team actually uses, and adapts drafts to the customer's tier and tone.",
-      detail:
-        "Macro reuse rate climbs from ~22% to ~68% in the first quarter.",
+      body: "Detect duplicates. Auto-link tickets to active incidents. Group customers affected by the same outage so a single comms thread covers all of them.",
     },
   ];
   return (
@@ -681,18 +1074,18 @@ function WhatChanges() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
         <div className="max-w-2xl mb-8">
           <div className="text-[11px] uppercase tracking-[0.12em] font-semibold text-ink-500 mb-2">
-            What changes
+            What changes for your team
           </div>
           <h2 className="text-[26px] font-semibold text-ink-900 tracking-tight leading-tight">
             Operational leverage, not workflow steps.
           </h2>
           <p className="mt-2 text-[14px] text-ink-600 leading-relaxed">
-            Triage Desk isn't a tag-and-route engine. It changes what arrives in
-            front of your agents — so they spend their time on the tickets that
-            need a human.
+            Triage Desk isn't a tag-and-route engine. It changes what arrives
+            in front of your agents — so they spend their time on the tickets
+            that need a human.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {items.map((it) => (
             <div
               key={it.title}
@@ -709,9 +1102,6 @@ function WhatChanges() {
               <p className="text-[12.5px] text-ink-700 leading-snug">
                 {it.body}
               </p>
-              <div className="mt-2 inline-flex items-center gap-1 text-[11px] text-ink-500 border-l-2 border-brand-500 pl-2">
-                <span className="font-mono tabular-nums">{it.detail}</span>
-              </div>
             </div>
           ))}
         </div>
@@ -804,87 +1194,43 @@ function Safety({
   );
 }
 
-/* =================== INTEGRATIONS =================== */
-
-function Integrations() {
-  return (
-    <section id="integrations" className="border-b border-ink-200 bg-white">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10">
-        <div className="text-center mb-5">
-          <div className="text-[11px] uppercase tracking-[0.12em] font-semibold text-ink-500 mb-1">
-            Sits on top of your existing stack
-          </div>
-          <p className="text-[14px] text-ink-700">
-            Two-way sync with the support inbox you already use. No rip-and-replace.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 max-w-3xl mx-auto">
-          {[
-            "Zendesk",
-            "Intercom",
-            "Front",
-            "HubSpot",
-            "Help Scout",
-            "Slack",
-            "Linear",
-            "Twilio Voice",
-            "Statuspage",
-            "Salesforce",
-            "Stripe",
-            "Segment",
-          ].map((n) => (
-            <div
-              key={n}
-              className="border border-ink-200 rounded-md py-2 px-2 text-center bg-white hover:border-brand-300 transition-colors"
-            >
-              <span className="text-[12px] font-medium text-ink-700">{n}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-5 text-center text-[11.5px] text-ink-500">
-          REST API, webhooks, and SCIM available for custom integrations.
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* =================== CLOSING CTA =================== */
+/* =================== CLOSING CTA — workflow evaluation =================== */
 
 function ClosingCTA() {
   return (
     <section className="bg-ink-900 text-white">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-14 text-center">
         <div className="text-[11px] uppercase tracking-[0.14em] font-semibold text-brand-300 mb-3">
-          See it for yourself
+          Evaluate the workflow, not the pitch
         </div>
         <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-tight max-w-2xl mx-auto">
-          See how Support Triage Desk handles a real SaaS support ticket.
+          Walk through a live triage pass on a messy SaaS support queue.
         </h2>
         <p className="mt-3 text-[14px] text-ink-300 max-w-xl mx-auto leading-relaxed">
           The live demo is the actual operator workstation, loaded with 19
           realistic tickets across 5 channels — including an angry Enterprise
-          escalation, a billing dispute, a duplicate, a known-incident match,
-          and a French-language SSO ticket.
+          escalation, a billing dispute, a duplicate, a known-incident
+          fan-out, a low-confidence ticket held for human review, and a
+          French-language SSO ticket.
         </p>
-        <div className="mt-6 flex items-center justify-center gap-2">
+        <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
           <Link
             to="/triage"
             className="inline-flex items-center gap-1.5 rounded-md bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 text-[13px] font-semibold"
           >
-            Walk through the live workstation
+            Review a live triage pass
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             to="/escalations"
             className="inline-flex items-center gap-1.5 rounded-md bg-ink-800 hover:bg-ink-700 text-white px-4 py-2.5 text-[13px] font-semibold ring-1 ring-ink-700"
           >
-            Jump to escalations queue
+            See how escalations get handled
           </Link>
         </div>
         <div className="mt-4 text-[11px] text-ink-400">
           No signup. No backend. Built as an interactive portfolio of what
-          serious internal support software looks like.
+          serious SaaS support ops software looks like.
         </div>
       </div>
     </section>
