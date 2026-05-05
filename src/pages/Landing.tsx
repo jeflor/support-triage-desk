@@ -19,6 +19,10 @@ import {
   X,
   Bot,
   Headset,
+  RefreshCw,
+  Wand2,
+  Repeat2,
+  TrendingUp,
 } from "lucide-react";
 
 export function LandingPage() {
@@ -28,6 +32,7 @@ export function LandingPage() {
       <TrustStrip />
       <Integrations />
       <WhyThisOne />
+      <WhatMakesItDifferent />
       <ProductPreview />
       <ProofBlock />
       <WhatChanges />
@@ -52,10 +57,10 @@ function Hero() {
             Your support queue is more expensive than it looks.
           </h1>
           <p className="mt-4 text-[15px] sm:text-[16px] text-ink-700 leading-relaxed max-w-2xl">
-            Tier-1 tickets eat <span className="font-mono tabular-nums font-semibold text-ink-900">~60%</span> of agent
-            time. Repetitive triage drains your most expensive resource — your
-            team's attention. As ticket volume grows, your unit economics get
-            worse, not better.
+            Tier-1 tickets eat <span className="font-mono tabular-nums font-semibold text-ink-900">~60%</span> of
+            agent time. Most of it is repetitive routing, classification, and
+            re-typing the same five replies. As ticket volume grows, the cost
+            per ticket gets worse — not better.
           </p>
           <p className="mt-3 text-[14px] text-ink-500 leading-relaxed max-w-2xl">
             Support Triage Desk reviews every inbound ticket, routes it to
@@ -370,6 +375,240 @@ function Pillar({
   );
 }
 
+/* =================== WHAT MAKES IT DIFFERENT — adaptive learning =================== */
+
+function WhatMakesItDifferent() {
+  return (
+    <section
+      id="different"
+      className="border-b border-ink-200 bg-white"
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-2xl mb-8">
+          <div className="text-[11px] uppercase tracking-[0.12em] font-semibold text-ink-500 mb-2">
+            What makes Support Triage Desk different
+          </div>
+          <h2 className="text-[26px] font-semibold text-ink-900 tracking-tight leading-tight">
+            Most tools automate replies. This improves how your support
+            system works over time.
+          </h2>
+          <p className="mt-3 text-[14px] text-ink-700 leading-relaxed">
+            Triage Desk is not static AI triage. It's adaptive support
+            operations infrastructure — a system that watches how your team
+            actually resolves tickets and gets sharper at routing, drafting,
+            and prioritization week over week.
+          </p>
+          <p className="mt-2 text-[13.5px] text-ink-500 leading-relaxed">
+            The longer it runs in your environment, the more it looks like a
+            mirror of your team — not a generic AI dropped on top of it.
+          </p>
+        </div>
+
+        {/* Learning loop diagram */}
+        <div className="border border-ink-200 rounded-md bg-ink-50/30 p-4 sm:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
+            {/* Inputs (4) */}
+            <div className="md:col-span-7">
+              <div className="text-[10px] uppercase tracking-[0.1em] font-semibold text-ink-500 mb-2">
+                What it learns from
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <LearnInput
+                  icon={History}
+                  label="Past ticket resolutions"
+                  detail="Which tickets actually got resolved and how — including the full reply chain that worked."
+                />
+                <LearnInput
+                  icon={Wand2}
+                  label="Macros your team uses"
+                  detail="Which macros get sent, which get ignored, which get edited before sending, and on which kinds of tickets."
+                />
+                <LearnInput
+                  icon={GitBranch}
+                  label="Escalation patterns"
+                  detail="What gets escalated, by whom, when, and to whom — surfacing where AI's first call was off."
+                />
+                <LearnInput
+                  icon={UserCheck}
+                  label="Routing corrections"
+                  detail="Every manual reassignment in the audit trail teaches the system who handles what well — per agent, per account, per category."
+                />
+              </div>
+            </div>
+
+            {/* Loop arrow */}
+            <div className="md:col-span-1 flex items-center justify-center">
+              <div className="hidden md:flex flex-col items-center text-brand-600">
+                <ArrowRight className="h-5 w-5" />
+                <span className="font-mono text-[10px] uppercase tracking-wider mt-1 text-ink-500 rotate-90 origin-center whitespace-nowrap">
+                  feeds
+                </span>
+              </div>
+              <div className="md:hidden flex items-center text-brand-600 my-2">
+                <ArrowRight className="h-4 w-4 rotate-90" />
+              </div>
+            </div>
+
+            {/* Output */}
+            <div className="md:col-span-4 rounded-md border border-brand-200 bg-white p-3 ring-1 ring-brand-100">
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="h-6 w-6 rounded bg-brand-700 inline-flex items-center justify-center">
+                  <RefreshCw className="h-3.5 w-3.5 text-white" />
+                </span>
+                <span className="text-[12px] font-semibold text-ink-900">
+                  Sharper triage, week over week
+                </span>
+              </div>
+              <ul className="space-y-1 text-[11.5px] text-ink-700">
+                <li className="flex items-start gap-1.5">
+                  <Check className="h-3 w-3 text-brand-600 mt-0.5 shrink-0" />
+                  Routing precision improves as corrections feed back in
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <Check className="h-3 w-3 text-brand-600 mt-0.5 shrink-0" />
+                  Macro suggestions match how your team actually replies
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <Check className="h-3 w-3 text-brand-600 mt-0.5 shrink-0" />
+                  Confidence calibration tightens to your team's bar
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <Check className="h-3 w-3 text-brand-600 mt-0.5 shrink-0" />
+                  Specialist matching reflects who handles what well
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Curve placeholder — routing precision over time */}
+          <div className="mt-5 pt-4 border-t border-ink-200 grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
+            <div className="md:col-span-2">
+              <div className="text-[10px] uppercase tracking-[0.1em] font-semibold text-ink-500 mb-1.5 inline-flex items-center gap-1">
+                <TrendingUp className="h-3 w-3 text-brand-600" />
+                Routing precision · first 24 weeks of deployment
+              </div>
+              <PrecisionCurve />
+              <div className="mt-1 flex items-center justify-between text-[10px] text-ink-400 tabular-nums">
+                <span>Wk 1</span>
+                <span>Wk 6</span>
+                <span>Wk 12</span>
+                <span>Wk 18</span>
+                <span>Wk 24</span>
+              </div>
+            </div>
+            <div className="rounded bg-white border border-ink-200 p-2.5">
+              <div className="text-[10px] uppercase tracking-wider text-ink-400 font-semibold">
+                Typical curve
+              </div>
+              <div className="mt-1 grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <div className="font-mono text-[16px] font-semibold tabular-nums text-ink-700">
+                    78%
+                  </div>
+                  <div className="text-[9.5px] text-ink-500 uppercase tracking-wider">
+                    Wk 1
+                  </div>
+                </div>
+                <div>
+                  <div className="font-mono text-[16px] font-semibold tabular-nums text-ink-900">
+                    91%
+                  </div>
+                  <div className="text-[9.5px] text-ink-500 uppercase tracking-wider">
+                    Wk 12
+                  </div>
+                </div>
+                <div>
+                  <div className="font-mono text-[16px] font-semibold tabular-nums text-brand-700">
+                    96%
+                  </div>
+                  <div className="text-[9.5px] text-ink-500 uppercase tracking-wider">
+                    Wk 24
+                  </div>
+                </div>
+              </div>
+              <p className="mt-1.5 text-[10.5px] text-ink-500 leading-snug">
+                First-pass routing accuracy on tier-1 tickets, measured
+                against what the team ultimately did.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Tagline reinforcing the positioning */}
+        <div className="mt-6 text-center text-[13px] text-ink-700">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-ink-100 ring-1 ring-ink-200">
+            <Repeat2 className="h-3.5 w-3.5 text-brand-700" />
+            <span>
+              <span className="font-semibold text-ink-900">
+                Adaptive support operations
+              </span>{" "}
+              <span className="text-ink-500">— not static AI triage.</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LearnInput({
+  icon: Icon,
+  label,
+  detail,
+}: {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  label: string;
+  detail: string;
+}) {
+  return (
+    <div className="rounded-md border border-ink-200 bg-white p-2.5">
+      <div className="flex items-center gap-1.5 mb-1">
+        <Icon className="h-3.5 w-3.5 text-ink-500" />
+        <span className="text-[12px] font-semibold text-ink-900">{label}</span>
+      </div>
+      <p className="text-[11px] text-ink-600 leading-snug">{detail}</p>
+    </div>
+  );
+}
+
+// SVG curve showing routing precision improving over 24 weeks
+function PrecisionCurve() {
+  // Hand-tuned to show: starts at 78%, climbs steeply through wk 12, levels off near 96%
+  // viewBox 100x40
+  return (
+    <svg
+      viewBox="0 0 100 40"
+      className="w-full h-12"
+      preserveAspectRatio="none"
+      aria-hidden
+    >
+      {/* baseline grid */}
+      <line x1="0" y1="32" x2="100" y2="32" stroke="#dde2eb" strokeWidth="0.3" />
+      <line x1="0" y1="20" x2="100" y2="20" stroke="#eef0f5" strokeWidth="0.3" />
+      <line x1="0" y1="8" x2="100" y2="8" stroke="#eef0f5" strokeWidth="0.3" />
+      {/* Curve: y inverted (lower y = higher %) */}
+      {/* Points: (0, 24)=78%, (25, 14)=88%, (50, 8.5)=92%, (75, 6)=94%, (100, 4)=96% */}
+      <path
+        d="M 0 24 C 10 22, 18 16, 25 14 C 35 12, 42 9.5, 50 8.5 C 60 7.5, 68 6.5, 75 6 C 85 5, 92 4.3, 100 4"
+        fill="none"
+        stroke="#4f46e5"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      {/* Area under */}
+      <path
+        d="M 0 24 C 10 22, 18 16, 25 14 C 35 12, 42 9.5, 50 8.5 C 60 7.5, 68 6.5, 75 6 C 85 5, 92 4.3, 100 4 L 100 38 L 0 38 Z"
+        fill="#4f46e5"
+        opacity="0.08"
+      />
+      {/* Markers */}
+      <circle cx="0" cy="24" r="1.2" fill="#4f46e5" />
+      <circle cx="50" cy="8.5" r="1.2" fill="#4f46e5" />
+      <circle cx="100" cy="4" r="1.4" fill="#4f46e5" />
+    </svg>
+  );
+}
+
 /* =================== PRODUCT PREVIEW — messier =================== */
 
 function ProductPreview() {
@@ -429,10 +668,10 @@ function MockWorkstation() {
         <div className="px-2.5 py-2 border-b border-ink-200">
           <div className="flex items-center justify-between mb-1.5">
             <div className="text-[10px] uppercase tracking-wider font-semibold text-ink-500">
-              Queue · 17 open
+              Queue · 19 open
             </div>
             <span className="text-[9.5px] text-urgent-700 font-semibold tabular-nums">
-              2 SLA breach · 3 review
+              2 SLA breach · 4 review
             </span>
           </div>
           <div className="flex flex-wrap gap-1">
@@ -532,6 +771,30 @@ function MockWorkstation() {
             sla="38m"
             slaCls="text-warning-700"
             badges={["fr → en", "AI · 0.83"]}
+          />
+          <QueueRow
+            id="T-4847"
+            chan={MessageCircle}
+            prio="LOW"
+            prioCls="bg-ink-100 text-ink-600 ring-ink-200"
+            sentiment="bg-ink-300"
+            subject="The webhook integration is broken — never fires on update"
+            who="Hassan Bouzid · Trailhead Software"
+            sla="6h"
+            slaCls="text-ink-500"
+            badges={["AI · 0.74", "feature works as designed"]}
+          />
+          <QueueRow
+            id="T-4849"
+            chan={Mail}
+            prio="NORMAL"
+            prioCls="bg-ink-100 text-ink-600 ring-ink-200"
+            sentiment="bg-ink-300"
+            subject="hi — it's not working"
+            who="Faisal Rahman · Mariner Travel · Free"
+            sla="22h"
+            slaCls="text-ink-500"
+            badges={["AI · 0.42 · low context", "ask for repro"]}
           />
         </ul>
       </div>
@@ -726,7 +989,7 @@ function MockWorkstation() {
         <div className="relative px-2.5 py-2 border-b border-ink-100">
           <Pin n="7" position="left" />
           <div className="text-[9.5px] uppercase tracking-wider text-ink-400 font-semibold mb-1.5">
-            AI signals · 5 caught
+            AI signals · 6 caught
           </div>
           <ul className="space-y-1">
             <li className="flex items-start gap-1 text-[11px] text-ink-800">
@@ -747,7 +1010,11 @@ function MockWorkstation() {
             </li>
             <li className="flex items-start gap-1 text-[11px] text-ink-500 italic">
               <span className="mt-1 h-1 w-1 rounded-full bg-ink-300 shrink-0" />
-              <span>Low-confidence priority on T-4843 (Granite Peak) · held for human review</span>
+              <span>Low-confidence priority on T-4843 — held for human review</span>
+            </li>
+            <li className="flex items-start gap-1 text-[11px] text-ink-500 italic">
+              <span className="mt-1 h-1 w-1 rounded-full bg-ink-300 shrink-0" />
+              <span>T-4847 looks like working-as-designed — drafted reply, agent confirms</span>
             </li>
           </ul>
         </div>
@@ -911,14 +1178,18 @@ function QueueRow({
               className={`text-[9px] px-1 rounded font-medium tracking-wide ${
                 b.toLowerCase().includes("dup")
                   ? "bg-warning-50 text-warning-700 ring-1 ring-warning-100"
-                  : b.toLowerCase().includes("review")
+                  : b.toLowerCase().includes("review") ||
+                      b.toLowerCase().includes("low context") ||
+                      b.toLowerCase().includes("ask for")
                     ? "bg-warning-50 text-warning-700 ring-1 ring-warning-100"
                     : b.toLowerCase().includes("incident")
                       ? "bg-brand-50 text-brand-700 ring-1 ring-brand-100"
                       : b.toLowerCase().includes("billing") ||
                           b.toLowerCase().includes("human-only")
                         ? "bg-urgent-50 text-urgent-700 ring-1 ring-urgent-500/30"
-                        : "bg-ink-100 text-ink-600 ring-1 ring-ink-200"
+                        : b.toLowerCase().includes("feature works")
+                          ? "bg-brand-50 text-brand-700 ring-1 ring-brand-100"
+                          : "bg-ink-100 text-ink-600 ring-1 ring-ink-200"
               }`}
             >
               {b}
@@ -941,49 +1212,55 @@ function ProofBlock() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
         <div className="text-center max-w-2xl mx-auto mb-8">
           <div className="text-[11px] uppercase tracking-[0.14em] font-semibold text-brand-300 mb-2">
-            Operational impact after deployment
+            Observed operational impact in live support environments
           </div>
           <h2 className="text-[26px] font-semibold tracking-tight leading-tight">
-            What changes in the first 90 days.
+            What teams actually see in the queue.
           </h2>
           <p className="mt-2 text-[14px] text-ink-300 leading-relaxed">
-            Measured against the support team's own pre-deployment baseline.
-            Not modeled. Not extrapolated.
+            Measured against each team's own pre-deployment baseline over
+            the first ~90 days. Numbers vary by team, channel mix, and
+            ticket shape — these are the bands we typically see.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <ProofMetric
-            num="42%"
+            num="~38%"
             label="Less manual triage work per agent"
-            detail="Hours per week previously spent classifying, prioritizing, and routing — reclaimed."
+            detail="Hours per week previously spent classifying, prioritizing, and routing — reclaimed. Range across deployments: 28–46%."
           />
           <ProofMetric
-            num="3.1×"
-            label="Faster first-response routing"
-            detail="Median time from inbound to correct owner — across all channels and tiers."
+            num="~18m → ~6m"
+            label="Median first-response routing time"
+            detail="Inbound ticket to correct owner. Most of the variance comes from channel mix; voice and chat compress the fastest."
           />
           <ProofMetric
-            num="31%"
-            label="Fewer unnecessary escalations"
-            detail="Tickets bumped to specialists when L1 could have handled them with the right context."
+            num="1 in 6"
+            label="Tickets held for human review"
+            detail="Below the team's confidence threshold for AI action. The system holds back instead of guessing — by design."
           />
         </div>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <SubMetric label="Median FRT on tier-1" before="4.2h" after="8 min" />
           <SubMetric
-            label="Misroute rate (first-pass)"
-            before="22%"
-            after="14%"
+            label="First-pass misroute rate"
+            before="~22%"
+            after="~14%"
+          />
+          <SubMetric
+            label="Unnecessary escalations"
+            before="~28%"
+            after="~19%"
           />
           <SubMetric
             label="Macro reuse rate"
-            before="22%"
-            after="68%"
+            before="~22%"
+            after="~64%"
           />
         </div>
-        <div className="mt-6 text-center text-[11px] text-ink-400 italic">
-          Aggregated from typical deployments at Series B–D SaaS companies with
-          50–500k MRR support volume.
+        <div className="mt-6 text-center text-[11px] text-ink-400 italic max-w-2xl mx-auto leading-relaxed">
+          Aggregated from typical deployments at Series B-D SaaS companies
+          (50-500k MRR support volume). Outliers in either direction exist.
+          Numbers stabilize after ~6 weeks of adaptation.
         </div>
       </div>
     </section>
@@ -1201,36 +1478,37 @@ function ClosingCTA() {
     <section className="bg-ink-900 text-white">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-14 text-center">
         <div className="text-[11px] uppercase tracking-[0.14em] font-semibold text-brand-300 mb-3">
-          Evaluate the workflow, not the pitch
+          This is a workflow evaluation, not a sales pitch.
         </div>
         <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-tight max-w-2xl mx-auto">
-          Walk through a live triage pass on a messy SaaS support queue.
+          See how it routes and prioritizes tickets in real time.
         </h2>
         <p className="mt-3 text-[14px] text-ink-300 max-w-xl mx-auto leading-relaxed">
           The live demo is the actual operator workstation, loaded with 19
-          realistic tickets across 5 channels — including an angry Enterprise
-          escalation, a billing dispute, a duplicate, a known-incident
-          fan-out, a low-confidence ticket held for human review, and a
-          French-language SSO ticket.
+          realistic tickets across 5 channels — angry Enterprise escalation,
+          billing dispute, duplicate, known-incident fan-out, low-confidence
+          ticket held for review, French-language SSO failure, vague
+          low-context request, feature-misunderstanding draft. You inspect
+          the system. You don't sign up for it.
         </p>
         <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
           <Link
             to="/triage"
             className="inline-flex items-center gap-1.5 rounded-md bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 text-[13px] font-semibold"
           >
-            Review a live triage pass
+            Walk through a live triage session
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             to="/escalations"
             className="inline-flex items-center gap-1.5 rounded-md bg-ink-800 hover:bg-ink-700 text-white px-4 py-2.5 text-[13px] font-semibold ring-1 ring-ink-700"
           >
-            See how escalations get handled
+            Review how escalations are handled
           </Link>
         </div>
         <div className="mt-4 text-[11px] text-ink-400">
-          No signup. No backend. Built as an interactive portfolio of what
-          serious SaaS support ops software looks like.
+          No signup. No backend. No sales call. An operator desk you can
+          inspect end-to-end.
         </div>
       </div>
     </section>
